@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Update user info page.-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>WebBook</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/templates/mainBookPage_pattern.xhtml">
+
+            <ui:define name="content">
+
+                <div class="col-8" style="background-color: #e8e8e8;">
+
+                    <p class="authorsListTitle">Update personal data</p>
+                    <h:form id="updatePDForm"  style="margin-left: 40%;"  enctype="multipart/form-data">
+                        <p class="singleLetter">User Name: </p> 
+                        <h:inputText value="#{user.userName}" id="editName" class="active-cyan-4" style="width: 200px; border-radius: 5px;" p:placeholder="Name" required="true" requiredMessage="Input your name!"/>          
+                        <p><h:message for="editName" styleClass="passwordErrorStyle"/></p>
+
+                        <p class="singleLetter">Password: </p> 
+                        <h:inputText value="#{user.password}" id="editPassword" class="active-cyan-4" style="width: 200px; border-radius: 5px;" p:placeholder="Password" required="true">
+                            <f:validator validatorId="validators.PasswordValidator"/>
+                        </h:inputText>
+                        <p><h:message for="editPassword" styleClass="passwordErrorStyle"/></p>
+
+                        <p class="singleLetter">Telephone number: </p> 
+                        <h:inputText value="#{user.telephoneNumber}" id="editPhone" p:type="tel" class="active-cyan-4" style="width: 200px; border-radius: 5px;" p:placeholder="Phone number" required="true" requiredMessage="Input your phone number!" />
+                        <p><h:message for="editPhone" styleClass="passwordErrorStyle"/></p>
+
+                        <strong class="singleLetter">Input image: </strong> 
+                        <div class="file-field">
+                            <div class="z-depth-1-half mb-4" style="width: 100px; height: 100px;">
+                                <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="img-fluid" style="width: 100px; height: 100px;"
+                                     alt="choose file"/>
+                            </div>
+                            <div class="d-flex justify-content">
+                                <div class="btn btn-mdb-color btn-rounded float-left">
+                                    <span>Choose file</span>
+                                    <h:inputFile id="editImgFile" value="#{user.imageContainer}" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <h:commandButton action="#{editUserDataController.changePersonalData()}" class="btn btn-lg btn-primary" value="Update"/>
+                        <p><h:message for="updatePDForm" styleClass="singleLetter" /> </p>
+                    </h:form>
+
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

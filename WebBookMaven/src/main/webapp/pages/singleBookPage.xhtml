@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Single book page-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>WebBook</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/mainBookPage_pattern.xhtml">
+
+
+            <ui:define name="content">
+
+                <div class="col-8" style="background-color: #e8e8e8;">  
+                    <div class="row">
+                        <div class="col-3">
+                            
+                                <h:form id="evalForm"> 
+                                    <h:panelGroup  layout="block" rendered="#{!singleBookController.evaluatedByUser}">
+                                    <h:outputText value="Evaluate: "  class="singleBookTitle"/> 
+                                    <h:selectOneMenu value="#{singleBookController.mark}"  class="mdb-select">
+                                        <f:selectItem itemValue="1"/>
+                                        <f:selectItem itemValue="2"/>
+                                        <f:selectItem itemValue="3"/>
+                                        <f:selectItem itemValue="4"/>
+                                        <f:selectItem itemValue="5"/>
+                                    </h:selectOneMenu> 
+                                    <h:commandButton value="Evaluate"  class="btn btn-primary btn-sm" action="#{singleBookController.updateMark()}">
+                                    </h:commandButton>
+                                    </h:panelGroup>
+                                </h:form>
+                            
+                            <h:graphicImage value="/ImageProcessing?idB=#{singleBookController.book.id}&amp;type=book" class="img-responsive" width="100%" height="55%"/>  
+                            <h:form id="updateForm"> 
+
+                                <div> <h:outputLink  value="#{request.contextPath}/PDFProcessing" target="_blank"> <h:graphicImage library="images" name="read.png" style="margin-top:7px;margin-left:-3px; height:60px;width:60px;"/></h:outputLink>
+                                    <h:outputLink  value="#{request.contextPath}/DownloadPDFProcessing" > <h:graphicImage library="images" name="download.png" style="margin-left:7px;margin-top:7px; height:60px;width:140px;"/></h:outputLink>
+                                </div>
+                                <div>
+                                    <h:commandLink action="#{singleBookController.addBookInReadingMode()}">
+                                        <h:graphicImage library="images" name="readingUnchecked.png" class="checkBoxIMG" rendered="#{!singleBookController.inReadingMode}" /> 
+                                        <h:graphicImage library="images" name="readingChecked.png" class="checkBoxIMG" rendered="#{singleBookController.inReadingMode}" /> 
+                                    </h:commandLink > 
+
+                                    <h:commandLink  action="#{singleBookController.addBookInReadedMode()}">
+                                        <h:graphicImage library="images" name="readedUnchecked.png" class="checkBoxIMG" rendered="#{!singleBookController.inReadedMode}" /> 
+                                        <h:graphicImage library="images" name="readedChecked.png" class="checkBoxIMG" rendered="#{singleBookController.inReadedMode}" /> 
+                                    </h:commandLink> 
+                                    <h:commandLink action="#{singleBookController.addBookInInterestingMode()}">
+                                        <h:graphicImage library="images" name="interestingUnchecked.png" class="checkBoxIMG" rendered="#{!singleBookController.inInterestingMode}" /> 
+                                        <h:graphicImage library="images" name="interestingChecked.png" class="checkBoxIMG" rendered="#{singleBookController.inInterestingMode}" /> 
+                                    </h:commandLink>  
+                                </div>
+
+                            </h:form>
+                        </div>
+
+                        <h:panelGroup id="bookContentForm" class="col-6" >
+
+                            <p class="authorsListTitle">
+                                <h:outputText value="#{singleBookController.book.bookName}"  />
+                            </p>
+                            <p> 
+                                <strong style="background-color: #e8e8e8;">Description: </strong>
+                                <h:outputText value="#{singleBookController.book.description}"  />
+                            </p>
+                            <p>
+                                <strong style="background-color: #e8e8e8;">ISBN:</strong> 
+                                <h:outputText value="#{singleBookController.book.isbn}" />
+                            </p>
+                            <p>
+                                <strong style="background-color: #e8e8e8;">Publisher:</strong>
+                                <h:outputText value="#{singleBookController.book.publisher.publisherName}"   />
+                            </p>
+
+                            <p>
+                                <strong style="background-color: #e8e8e8;">Number of Pagies:</strong>
+                                <h:outputText value="#{singleBookController.book.pageNumber}" />
+                            </p>   
+
+                            <p>
+                                <strong style="background-color: #e8e8e8;">Publish Date:</strong>  
+                                <h:outputText value="#{singleBookController.book.publishYear}" />
+                            </p>     
+
+                            <p>
+                                <strong style="background-color: #e8e8e8;">Author:</strong>
+                                <h:outputText value="#{singleBookController.book.author.name}"/>
+                            </p>
+                            <p>
+                                <strong style="background-color: #e8e8e8;">Mark:</strong>
+                                <h:outputText value="#{singleBookController.markExergue}" />
+
+                            </p>    
+                        </h:panelGroup>
+
+                        <h:panelGroup class="col-3">  
+                            <h:form id="recentionForm">
+
+                                <h4 class="authorsListTitle">Recension:</h4>
+                                <div id="active-panel-container" class="recensionPanel searchedPanel">
+                                    <ui:repeat value="#{singleBookController.recensionListByUser}" var="recensionObject">
+                                        <h:panelGroup layout="block" class="singleRecension">
+                                            <p class="authorsRecensionTitle">#{recensionObject.userName}: </p>
+                                            <h:graphicImage value="/ImageProcessing?idU=#{recensionObject.unformedUserEmail}&amp;type=user" class="recensionImage"/> 
+                                            <h:outputText style="margin-left: 3px;" value="#{recensionObject.recensionText}" />
+                                            <div style="clear: both;"/>
+                                            <h:inputTextarea value="#{singleBookController.modifyRecensionText}"  p:placeholder="Input Your Book Recension" styleClass="recensionTextArea" rendered="#{user.formedEmail eq recensionObject.userEmail and recensionObject.recensionId eq singleBookController.checkedRecentionID}" />
+
+                                            <div >
+                                                <h:commandLink class="deleteRecensionLink" action="#{singleBookController.delateRecension()}" value="Delete" rendered="#{user.formedEmail eq recensionObject.userEmail and !singleBookController.recencionModifying}">
+                                                    <f:param name="recension_id" value="#{recensionObject.recensionId}" />
+                                                </h:commandLink> 
+                                                <h:commandLink class="deleteRecensionLink" value="Modify" rendered="#{user.formedEmail eq recensionObject.userEmail and !singleBookController.recencionModifying}">
+                                                    <f:param name="recension_id" value="#{recensionObject.recensionId}" />
+                                                    <f:ajax onevent="loadBar" event="click" render=" @form" listener="#{singleBookController.modifyngRecensionTextFormText()}"/>
+                                                </h:commandLink> 
+                                                <h:commandButton class="btn btn-lg btn-primary" action="#{singleBookController.modifyRecension()}" value="Modify" rendered="#{user.formedEmail eq recensionObject.userEmail and recensionObject.recensionId eq singleBookController.checkedRecentionID}">
+                                                    <f:param name="recension_id" value="#{recensionObject.recensionId}" />
+                                                </h:commandButton> 
+                                                <h:commandLink immediate="true" class="deleteRecensionLink" value="Cansel" rendered="#{user.formedEmail eq recensionObject.userEmail and recensionObject.recensionId eq singleBookController.checkedRecentionID}">
+                                                    <f:ajax onevent="loadBar" event="click" render=" @form" listener="#{singleBookController.canselRecensionModifyMode()}"/>
+                                                </h:commandLink> 
+                                            </div> 
+                                        </h:panelGroup>   
+
+                                    </ui:repeat> 
+
+                                </div>
+                                            <h:panelGroup rendered="#{singleBookController.checkedRecentionID eq -1}"> 
+                                <h:inputTextarea value="#{singleBookController.recensionText}"  p:placeholder="Input Your Book Recension" styleClass="recensionTextArea" />
+                                <h:commandButton action="#{singleBookController.sendRecension()}" value="Leave Recension"  class="btn btn-lg btn-primary" style="margin-left: 10%;" >
+                               
+                                </h:commandButton>
+                                            </h:panelGroup>
+
+                            </h:form>
+                        </h:panelGroup> 
+                    </div>
+
+
+                </div>
+
+
+            </ui:define>
+
+
+        </ui:composition>
+    </h:body>
+</html>
+

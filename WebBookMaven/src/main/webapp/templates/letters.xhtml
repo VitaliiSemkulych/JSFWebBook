@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Fragment with letters-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <div style="background-color: #e8e8e8;" class="col-12">
+
+                <h:form id="lettersForm">
+                    <div style="margin-left: 15%;" class="nav">
+                        <ui:repeat value="#{letterList.letterList}" var="let" >
+                            <h:commandLink action="#{searchController.bookListByLetter()}" value="#{let}" styleClass="#{let==searchController.letter ? 'nav-link disabled':'nav-link singleLetter'}" >
+                                <f:param name="letter" value="#{let}" /> </h:commandLink>
+                        </ui:repeat>
+                    </div>
+                </h:form>
+
+            </div>
+
+
+        </ui:composition>
+    </h:body>
+</html>
+

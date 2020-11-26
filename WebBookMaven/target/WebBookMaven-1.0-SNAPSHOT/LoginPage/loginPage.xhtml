@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--Login and registration page. Welcome application page. -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xml:lang="en"
+      >
+    <h:head>
+        <title>WebBook</title>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <h:outputStylesheet library="css" name="header.css"  />
+        <h:outputStylesheet library="css" name="menu.css"  />
+        <h:outputStylesheet library="css" name="singleBookPage.css"  />
+
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+    </h:head>
+    <h:body>
+        <div class="container-fluid">
+            <div class="row">    
+                <header class="col-12" >
+                    <div class="header__row">
+                        <div class="header__logo">
+                            <h:graphicImage library="images" name="search.PNG" alt="Search image" styleClass="searchImage"/>
+
+                        </div>
+                        <div class="header_logo_text">
+                            <strong class="findLable">WebBook</strong>
+                        </div>
+
+                        <div class="header_login_search">
+                            <span class="findLable">Sing In</span>
+                            <h:form id="loginForm">   
+                                <h:inputText id="userEmail" value="#{user.userEmail}" class="active-cyan-4" style="border-radius: 5px;" p:type="email" required="true" p:placeholder="Email" />
+                                <h:inputSecret id="userPassword" value="#{user.password}" class="active-cyan-4" style="border-radius: 5px;" p:placeholder="Password" p:required="required"  >
+                                    <f:validator validatorId="validators.PasswordValidator"/>
+                                </h:inputSecret>
+                                <h:commandButton id="loginButton"  action="#{user.login()}" class="btn btn-primary btn-sm" value="Log in" />
+                                <div><h:outputText value="#{user.errorMessage}" styleClass="passwordErrorStyle" /> 
+                                    <h:message for="userPassword" styleClass="passwordErrorStyle"/></div>
+                            </h:form>
+
+                        </div>
+
+                    </div>
+                </header>
+            </div>
+
+
+
+            <div class="row"  style="background-color: #e8e8e8;">
+                <div class="col-6" >
+                    <h:graphicImage alt="WebBook logo" library="images" name="bookSigh.png" styleClass="picture"/>
+                    <p style="margin-left: 35%" class="singleLetter">Welcome to the online library where you can find any book of your choice. Available search, browse, sort, and many others.</p>
+                </div>
+
+
+
+                <div class="col-6">
+                    <h2 class="authorsListTitle">Registration</h2>
+                    <h:form id="registrationform" enctype="multipart/form-data" style="margin-left: 30%;padding-bottom: 10.5%">
+                        <h:outputLabel for="registrName" class="singleLetter">Name:</h:outputLabel><br/>
+                        <h:inputText value="#{user.userName}" id="registrName" class="active-cyan-4" style="width: 400px;border-radius: 5px;margin-bottom: 2%;" p:placeholder="Name" required="true" requiredMessage="Input your name!"/>          
+                        <p><h:message for="registrName" styleClass="passwordErrorStyle"/></p>
+
+                        <h:outputLabel for="registrEmail" class="singleLetter">Email:</h:outputLabel><br/>
+                        <h:inputText value="#{user.userEmail}" id="registrEmail" class="active-cyan-4" style="width: 400px;border-radius: 5px;margin-bottom: 2%;" p:type="email" required="true" p:placeholder="Email">
+                            <f:validator validatorId="validators.EmailValidator"/>
+                        </h:inputText> 
+                        <p><h:message for="registrEmail" styleClass="passwordErrorStyle"/></p>
+
+                        <h:outputLabel for="registrPassword" class="singleLetter">Password:</h:outputLabel><br/>
+                        <h:inputSecret value="#{user.password}" id="registrPassword" class="active-cyan-4" style="width: 400px;border-radius: 5px;margin-bottom: 2%;" p:placeholder="Password" required="true"  >
+                            <f:validator validatorId="validators.PasswordValidator"/>
+                        </h:inputSecret>
+                        <p><h:message for="registrPassword" styleClass="passwordErrorStyle"/></p>
+                        <h:outputLabel for="Phone" class="singleLetter">Telephone number:</h:outputLabel><br/>
+                        <h:inputText value="#{user.telephoneNumber}" id="Phone" p:type="tel" class="active-cyan-4" style="width: 400px;border-radius: 5px;margin-bottom: 2%;" p:placeholder="Phone number" required="true" requiredMessage="Input your phone number!" />
+                        <p><h:message for="Phone" styleClass="passwordErrorStyle"/></p>
+
+                        <h:outputLabel for="regImg" class="singleLetter">Input image: </h:outputLabel> 
+
+                        <div class="file-field">
+                            <div class="z-depth-1-half mb-4" style="width: 100px; height: 100px;">
+                                <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="img-fluid" style="width: 100px; height: 100px;"
+                                     alt="choose file"/>
+                            </div>
+                            <div class="d-flex justify-content">
+                                <div class="btn btn-mdb-color btn-rounded float-left">
+                                    <span>Choose file</span>
+                                    <h:inputFile id="regImg" value="#{user.imageContainer}" required="true"/>
+                                </div>
+                            </div>
+                        </div>
+                        <h:commandButton id="regButton" action="#{user.registrate()}"  class="btn btn-lg btn-primary" value="Registrate"/> <br/> 
+                        <h:outputText value="#{user.registrationInfo}" styleClass="passwordErrorStyle" />                        
+
+                    </h:form>
+
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    </h:body>
+</html>
+

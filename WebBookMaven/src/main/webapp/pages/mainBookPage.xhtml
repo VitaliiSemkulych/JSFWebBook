@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Search book page. Appears after logging.-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xml:lang="en">
+    <h:head>
+
+
+    </h:head>
+    <h:body >
+
+        <ui:composition template="/templates/mainBookPage_pattern.xhtml">
+            <ui:define name="content">
+                <div class="col-8" style="background-color: #e8e8e8;">
+
+
+
+
+                    <div class="row">
+                        <div  class="col-12" style="background-color: dimgray;" >   
+                            <h:outputText value="Find books: #{searchController.currentSearchList_Full.size()}" id="booksCount" class="findLable"></h:outputText>        
+                        </div>
+                    </div>
+
+                    
+                        <h:form id="BookList" >
+                            <div class="row" style=" padding-bottom: 2%;">
+                            <ui:repeat  value="#{searchController.currentSearchList}" var="book" >             
+                                <div class="col-4" > 
+                                    <h:panelGroup layout="block" class="card" style="margin-top: 10px;">   
+                                        <h:commandLink  action="#{singleBookController.chosenBookPage()}" >  
+                                            <h:graphicImage alt="Book image did not process" value="/ImageProcessing?idB=#{book.id}&amp;type=book" class="card-img-top"/>
+                                            <f:param name="book_id" value="#{book.id}" />
+                                        </h:commandLink>
+                                        <h:panelGroup layout="block" class="card-body">
+                                            <strong class="card-title">#{book.bookName}</strong>
+
+                                            <br/><strong>ISBN:</strong> #{book.isbn}
+                                            <br/><strong>Publisher:</strong> #{book.publisher.publisherName}
+                                            <br/><strong>Number of Pagies:</strong> #{book.pageNumber}
+                                            <br/><strong>Publish Date:</strong> #{book.publishYear}
+                                            <br/><strong>Author:</strong> #{book.author.name}<br/>
+
+
+
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+
+                                </div>
+                            </ui:repeat>  
+                             </div>
+                        </h:form>
+
+                   
+
+                    <div class="row">
+
+                        <h:panelGroup id="showPages" layout="block"  class="col-12" rendered="#{searchController.showedPageNumbers.size()>=1}">
+                            <h:form  id="pages" >
+                                <nav style="margin-left: 33%;margin-top: 3%;">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <h:commandLink value="Previous Page" styleClass="page-link" rendered="#{searchController.showedPageNumbers.size()>1}">
+                                                <f:ajax onevent="loadBar" event="click" render=" @form :showPages :BookList :genre :lettersForm  :booksCount :SearchForm :userForm" listener="#{searchController.previousPage()}"/>
+                                            </h:commandLink></li>
+                                        <ui:repeat value="#{searchController.showedPageNumbers}" var="page" >
+                                           
+                                            <ui:fragment rendered="#{page eq searchController.selectedPageNumber}">
+                                                 <li class="page-item active"><h:commandLink value="#{page}" styleClass="page-link">
+                                                <f:param name="page_number" value="#{page}" />
+                                                <f:ajax onevent="loadBar" event="click" render=" @form :showPages :BookList :genre :lettersForm  :booksCount :SearchForm :userForm" listener="#{searchController.selectPage()}"/>
+                                                </h:commandLink></li>
+                                            </ui:fragment>
+                                             <ui:fragment rendered="#{page ne searchController.selectedPageNumber}">
+                                                 <li class="page-item"><h:commandLink value="#{page}" styleClass="page-link">
+                                                <f:param name="page_number" value="#{page}" />
+                                                <f:ajax onevent="loadBar" event="click" render=" @form :showPages :BookList :genre :lettersForm  :booksCount :SearchForm :userForm" listener="#{searchController.selectPage()}"/>
+                                                </h:commandLink></li>
+                                            </ui:fragment>
+                 
+                                        </ui:repeat>
+                                        <li class="page-item">
+                                            <h:commandLink value="Next Page" styleClass="page-link" rendered="#{searchController.showedPageNumbers.size()>1}">
+                                                <f:ajax onevent="loadBar" event="click" render=" @form :showPages :BookList :genre :lettersForm  :booksCount :SearchForm :userForm" listener="#{searchController.nextPage()}"/>
+                                            </h:commandLink></li>
+                                    </ul>
+                                </nav>
+                            </h:form>
+                        </h:panelGroup>
+                    </div>
+
+                </div>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+

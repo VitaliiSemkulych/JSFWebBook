@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    
+     <navigation-rule>
+        <from-view-id>/pages/mainBookPage.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>exit</from-outcome>
+            <to-view-id>/LoginPage/loginPage.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>singleBook</from-outcome>
+            <to-view-id>/pages/singleBookPage.xhtml</to-view-id>
+             <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Settings</from-outcome>
+            <to-view-id>/pages/editUserData.xhtml</to-view-id>
+             <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>userPage</from-outcome>
+            <to-view-id>/pages/userPage.xhtml</to-view-id>
+             <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/pages/singleBookPage.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>main</from-outcome>
+            <to-view-id>/pages/mainBookPage.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>exit</from-outcome>
+            <to-view-id>/LoginPage/loginPage.xhtml</to-view-id>
+             <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Settings</from-outcome>
+            <to-view-id>/pages/editUserData.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>userPage</from-outcome>
+            <to-view-id>/pages/userPage.xhtml</to-view-id>
+             <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/LoginPage/loginPage.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>mainPage</from-outcome>
+            <to-view-id>/pages/mainBookPage.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/LoginPage/loginPage.xhtml</to-view-id>
+             <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/pages/editUserData.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>exit</from-outcome>
+            <to-view-id>/LoginPage/loginPage.xhtml</to-view-id>
+             <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>main</from-outcome>
+            <to-view-id>/pages/mainBookPage.xhtml</to-view-id>
+             <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Settings</from-outcome>
+            <to-view-id>/pages/editUserData.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>userPage</from-outcome>
+            <to-view-id>/pages/userPage.xhtml</to-view-id>
+             <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/pages/userPage.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>exit</from-outcome>
+            <to-view-id>/LoginPage/loginPage.xhtml</to-view-id>
+             <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Settings</from-outcome>
+            <to-view-id>/pages/editUserData.xhtml</to-view-id>
+             <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>main</from-outcome>
+            <to-view-id>/pages/mainBookPage.xhtml</to-view-id>
+             <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>singleBook</from-outcome>
+            <to-view-id>/pages/singleBookPage.xhtml</to-view-id>
+             <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/errorPages/commonError.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>main</from-outcome>
+            <to-view-id>/pages/mainBookPage.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+       
+       <factory>
+        <exception-handler-factory>org.omnifaces.exceptionhandler.FullAjaxExceptionHandlerFactory</exception-handler-factory>
+    </factory>
+</faces-config>

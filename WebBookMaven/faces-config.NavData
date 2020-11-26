@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="templates/user_menu.xhtml" x="1358" y="394" zoom="true"/>
+        <Node id="templates/genre_menu.xhtml" x="1349" y="344" zoom="true"/>
+        <Node id="pages/mainBookPage.xhtml" x="553" y="219" zoom="true"/>
+        <Node id="pages/singleBookPage.xhtml" x="131" y="204" zoom="true"/>
+        <Node id="templates/header.xhtml" x="1336" y="266" zoom="true"/>
+        <Node id="errorPages/commonError.xhtml" x="574" y="588" zoom="true"/>
+        <Node id="templates/mainBookPage_pattern.xhtml" x="1324" y="181" zoom="true"/>
+        <Node id="LoginPage/loginPage.xhtml" x="785" y="446" zoom="true"/>
+        <Node id="pages/editUserData.xhtml" x="563" y="69" zoom="true"/>
+        <Node id="pages/userPage.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="templates/letters.xhtml" x="1329" y="223" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>
